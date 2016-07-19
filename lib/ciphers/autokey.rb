@@ -9,7 +9,7 @@ module Ciphers
 		def encrypt(string)
       string.each_char.with_index.with_object('') do |(char, i), ret|
         ret << char and next unless alphabet.include?(char)
-        key_char = keystream_for(string)[i]
+        key_char = "#{key}#{string}"[i]
 				row = table.fetch key_char
 				col = alphabet.index(char)
 				ret << row[col]
@@ -19,11 +19,10 @@ module Ciphers
     def decrypt(string)
       string.each_char.with_index.with_object('') do |(char, i), ret|
         ret << char and next unless alphabet.include?(char)
-        key_char = decryption_keystream[i]
+        key_char = "#{key}#{ret}"[i]
         row = table.fetch key_char
         col = row.index(char)
         ret << alphabet[col]
-        decryption_keystream << alphabet[col]
       end
     end
 
@@ -36,14 +35,6 @@ module Ciphers
 				alphabet.each_with_index {|char, i| hash[char] = alphabet.rotate(i) }
 			end
 		end
-
-    def keystream_for(string)
-      "#{key}#{string}"[0..(string.length - 1)]
-    end
-
-    def decryption_keystream
-      @decryption_keystream ||= key.dup
-    end
 	end
 
 end
