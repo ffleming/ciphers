@@ -1,7 +1,7 @@
 # Ciphers
 
 This gem implements simple cryptographic ciphers.  As of now, it can only do 
-Vigenère ciphers, but more are coming as I have the time and inclination.
+Vigenère and Autokey ciphers, but more are coming as I have the time and inclination.
 Because this mostly exists for my own purposes (the fun of programming it and 
 CTFs), I am not currently accepting PRs for new features or ciphers.  Feel free
 to fork away, though, and if you have any suggestions for what I should
