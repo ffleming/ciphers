@@ -8,6 +8,9 @@ to fork away, though, and if you have any suggestions for what I should
 implement next, I'd love to hear them!  This especially applies if the
 recommendation comes with a fun puzzle that implementing it will solve!
 
+I generally feel free to break the API on minor revisions prior to a 1.0.  After
+that, I follow semantic versioning.
+
 ## Contributing
 
 Bug reports and feature/cipher requests are welcome
