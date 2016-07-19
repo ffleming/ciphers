@@ -1,5 +1,5 @@
 module Ciphers
-	class Vigenere
+	class Autokey
 		def self.alphabet_from(string)
 			raise ArgumentError.new("Argument must be at most #{LATIN.length} characters long") unless string.length <= 26
 			chars = string.upcase.chars
@@ -18,26 +18,23 @@ module Ciphers
 		end
 
 		def encrypt(string)
-      i = 0
-      string.each_char.with_object('') do |char, ret|
+      string.each_char.with_index.with_object('') do |(char, i), ret|
         ret << char and next unless alphabet.include?(char)
-        key_char = key[ i % key.length ]
+        key_char = keystream_for(string)[i]
 				row = table.fetch key_char
 				col = alphabet.index(char)
-        i += 1
 				ret << row[col]
 			end
 		end
 
     def decrypt(string)
-      i = 0
-      string.each_char.with_object('') do |char, ret|
+      string.each_char.with_index.with_object('') do |(char, i), ret|
         ret << char and next unless alphabet.include?(char)
-        key_char = key[ i % key.length ]
+        key_char = decryption_keystream[i]
         row = table.fetch key_char
         col = row.index(char)
-        i += 1
         ret << alphabet[col]
+        decryption_keystream << alphabet[col]
       end
     end
 
@@ -50,6 +47,14 @@ module Ciphers
 				alphabet.each_with_index {|char, i| hash[char] = alphabet.rotate(i) }
 			end
 		end
+
+    def keystream_for(string)
+      "#{key}#{string}"[0..(string.length - 1)]
+    end
+
+    def decryption_keystream
+      @decryption_keystream ||= key.dup
+    end
 	end
 
 end
