@@ -1,6 +1,6 @@
 require 'spec_helper'
 RSpec.shared_examples_for "a cipher" do |hash|
-  context "#{hash.fetch :name} challenge" do
+  context "#{hash.fetch :name}" do
     let(:alphabet) { hash.fetch(:alphabet, Ciphers::LATIN) }
     let(:ciphertext) { hash.fetch(:ciphertext) }
     let(:plaintext) { hash.fetch(:plaintext) }
