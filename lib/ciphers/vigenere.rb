@@ -1,16 +1,5 @@
 module Ciphers
 	class Vigenere
-		def self.alphabet_from(string)
-			raise ArgumentError.new("Argument must be at most #{LATIN.length} characters long") unless string.length <= 26
-			chars = string.upcase.chars
-			raise ArgumentError.new("Argument must not contain duplicate letters") unless chars.uniq == chars
-			if chars.length < 26
-				chars + (LATIN - chars)
-      else
-        chars
-			end
-		end
-
 		def initialize(alphabet: Ciphers::LATIN, key: )
       alphabet = alphabet.chars if alphabet.is_a? String
 			@alphabet = alphabet.to_a.freeze
