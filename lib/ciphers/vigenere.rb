@@ -1,22 +1,22 @@
 module Ciphers
-	class Vigenere
-		def initialize(alphabet: Ciphers::LATIN, key: )
+  class Vigenere
+    def initialize(alphabet: Ciphers::LATIN, key: )
       alphabet = alphabet.chars if alphabet.is_a? String
-			@alphabet = alphabet.to_a.freeze
+      @alphabet = alphabet.to_a.freeze
       @key = key.upcase.freeze
-		end
+    end
 
-		def encrypt(string)
+    def encrypt(string)
       i = 0
       string.each_char.with_object('') do |char, ret|
         ret << char and next unless alphabet.include?(char)
         key_char = key[ i % key.length ]
-				row = table.fetch key_char
-				col = alphabet.index(char)
+        row = table.fetch key_char
+        col = alphabet.index(char)
         i += 1
-				ret << row[col]
-			end
-		end
+        ret << row[col]
+      end
+    end
 
     def decrypt(string)
       i = 0
@@ -30,15 +30,15 @@ module Ciphers
       end
     end
 
-		private
+    private
 
-		attr_reader :alphabet, :key
+    attr_reader :alphabet, :key
 
-		def table
-			@table = {}.tap do |hash|
-				alphabet.each_with_index {|char, i| hash[char] = alphabet.rotate(i) }
-			end
-		end
-	end
+    def table
+      @table = {}.tap do |hash|
+        alphabet.each_with_index {|char, i| hash[char] = alphabet.rotate(i) }
+      end
+    end
+  end
 
 end
